@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Реєстрація нового користувача</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    width: 50%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+fieldset {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+legend {
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: calc(100% - 10px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: #45a049;
+}
+
+input[type="submit"]:active,
+input[type="reset"]:active {
+    background-color: #3e8e41;
+}
+
+</style>
+<body>
+    <h1>Реєстрація нового користувача</h1>
+    <form method="POST" onsubmit="event.preventDefault(); senddata();">
+        <fieldset>
+            <legend>Реєстраційні дані</legend>
+            <label for="username">Ім'я користувача:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required><br><br>
+        </fieldset>
+        <fieldset>
+            <legend>Персональні дані</legend>
+            <label for="first_name">Ім'я:</label>
+            <input type="text" id="first_name" name="first_name"><br><br>
+            <label for="last_name">Прізвище:</label>
+            <input type="text" id="last_name" name="last_name"><br><br>
+            <label for="dob">Дата народження:</label>
+            <input type="date" id="dob" name="dob"><br><br>
+            <label for="gender">Стать:</label>
+            <select id="gender" name="gender">
+                <option value="male">Чоловіча</option>
+                <option value="female">Жіноча</option>
+                <option value="other">Інше</option>
+            </select><br><br>
+            <label for="country">Країна:</label>
+            <input type="text" id="country" name="country"><br><br>
+            <label for="city">Місто:</label>
+            <input type="text" id="city" name="city"><br><br>
+        </fieldset>
+        <input type="submit" value="Зареєструватися">
+        <input type="reset" value="Очистити">
+    </form>
+
+    <script>
+        function senddata() {
+    $.ajax({
+        url: 'process_registration.php',
+        type: 'POST',
+        data: {
+            username: $('#username').val(),
+            email: $('#email').val(),
+            password: $('#password').val(),
+            first_name: $('#first_name').val(),
+            last_name: $('#last_name').val(),
+            dob: $('#dob').val(),
+            gender: $('#gender').val(),
+            country: $('#country').val(),
+            city: $('#city').val()
+        },
+        success: function(response) {
+            alert('Реєстрація завершена успішно!');
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert('Виникла помилка: ' + textStatus);
+        }
+    });
+}
+    </script>
+</body>
+</html>
